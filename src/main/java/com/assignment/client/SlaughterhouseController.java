@@ -1,12 +1,17 @@
 package com.assignment.client;
 
 import com.assignment.protobuf.Animal;
+import com.google.protobuf.Descriptors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -17,22 +22,28 @@ public class SlaughterhouseController {
     private Logger logger = LoggerFactory.getLogger(SlaughterhouseController.class);
 
 
-    SlaughterhouseClient slaughterhouseClient;
+    SlaughterhouseClient slaughterhouseClient = new SlaughterhouseClient();
 
+
+    @GetMapping("/animals")public List<Map<Descriptors.FieldDescriptor,Object>> getAllAnimals()
+    {
+        return slaughterhouseClient.getAllAnimals();
+    }
 
     @GetMapping("/animals/{id}")
-    public ResponseEntity<Object> getAnimalById(@PathVariable long id) {
-        try {
-            Optional<Animal> animal = slaughterhouseClient.getAnimalById(id);
-            if (animal.isPresent()) {
-                return new ResponseEntity<Object>(animal.get(), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public Map<Descriptors.FieldDescriptor, Object> getAnimalById(@PathVariable long id) throws InterruptedException {
+        return slaughterhouseClient.getAnimalById(id);
+    }
+
+    @GetMapping("/animals/date/{date}")
+    public List<Map<Descriptors.FieldDescriptor, Object>> getAnimalsByDate(@PathVariable String date)
+    {
+        return slaughterhouseClient.getAnimalsByDate(date);
+    }
+
+
+}
+
 
 /*
 
@@ -162,10 +173,10 @@ public class SlaughterhouseController {
 
     }
 
- */
+
     }
 }
-
+*/
 
 
 

@@ -33,6 +33,7 @@ message PartPack{
 
 service SlaughterhouseService{
 
+  rpc getAllAnimals(Animal) returns(stream Animal){}
   rpc getAnimalById(Animal) returns(Animal){}
   rpc getAnimalsByDate(Animal) returns(stream Animal){}
   rpc getAnimalByOrigin(Animal)returns (Animal){}

@@ -26,11 +26,65 @@ public class SlaughterhouseClient {
             = SlaughterhouseServiceGrpc.newStub(managedChannel);
 
 
-    public Optional<Animal> getAnimalById(long id) throws InterruptedException {
+
+    public List<Map<Descriptors.FieldDescriptor, Object>> getAllAnimals()
+    {
+        Animal request = Animal.newBuilder().build();
+        final List<Map<Descriptors.FieldDescriptor, Object>> response = new ArrayList<>();
+        asynchronousStub.getAllAnimals(request, new StreamObserver<Animal>() {
+            @Override
+            public void onNext(Animal animal) {
+                response.add(animal.getAllFields());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                t.printStackTrace();
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+        });
+        return response;
+
+
+    }
+
+
+
+    public Map<Descriptors.FieldDescriptor, Object> getAnimalById(long id) throws InterruptedException {
         Animal request = Animal.newBuilder().setRegNr(id).build();
         Animal animalResponse = synchronousStub.getAnimalById(request);
 
-        return Optional.ofNullable(animalResponse);
+        return animalResponse.getAllFields();
     }
+
+    public List<Map<Descriptors.FieldDescriptor, Object>> getAnimalsByDate(String date)
+    {
+        Animal animalRequest = Animal.newBuilder().setArriveDate(date).build();
+        final List<Map<Descriptors.FieldDescriptor, Object>> response = new ArrayList<>();
+        asynchronousStub.getAnimalsByDate(animalRequest, new StreamObserver<Animal>() {
+            @Override
+            public void onNext(Animal animal) {
+                response.add(animal.getAllFields());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                t.printStackTrace();
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+        });
+        return response;
+    }
+
 
 }
