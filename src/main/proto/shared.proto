@@ -1,0 +1,44 @@
+syntax = "proto3";
+//import "google/protobuf/empty.proto";
+option java_multiple_files = true;
+
+package com.assignment.protobuf;
+
+message Animal{
+  int64 regNr = 1;
+  string arriveDate = 2;
+  float weight = 3;
+  string origin = 4;
+}
+
+message AnimalPart{
+  int64 regNr = 1;
+  string type = 2;
+  int64 animalRef = 3;
+  float weight = 4;
+}
+
+message Tray{
+  int64 trayRegNr = 1;
+  float weight = 2;
+  string partType = 3;
+  repeated int64 partRef = 4;
+}
+
+message PartPack{
+  int64 packRegNr = 1;
+  repeated int64 trayRef = 2;
+}
+
+
+service SlaughterhouseService{
+
+  rpc getAnimalById(Animal) returns(Animal){}
+  rpc getAnimalsByDate(Animal) returns(stream Animal){}
+  rpc getAnimalByOrigin(Animal)returns (Animal){}
+
+  //rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
+  //rpc createAnimal(Animal) returns(google.protobuf.Empty){}
+  //rpc updateAnimal(Animal) returns(google.protobuf.Empty){}
+  //rpc deleteAnimal(Animal) returns(google.protobuf.Empty){}
+}
