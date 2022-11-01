@@ -51,7 +51,7 @@ public final class Shared {
       "ay\022\021\n\ttrayRegNr\030\001 \001(\003\022\016\n\006weight\030\002 \001(\002\022\020\n" +
       "\010partType\030\003 \001(\t\022\017\n\007partRef\030\004 \003(\003\".\n\010Part" +
       "Pack\022\021\n\tpackRegNr\030\001 \001(\003\022\017\n\007trayRef\030\002 \003(\003" +
-      "2\366\002\n\025SlaughterhouseService\022U\n\rgetAllAnim" +
+      "2\312\003\n\025SlaughterhouseService\022U\n\rgetAllAnim" +
       "als\022\037.com.assignment.protobuf.Animal\032\037.c" +
       "om.assignment.protobuf.Animal\"\0000\001\022S\n\rget" +
       "AnimalById\022\037.com.assignment.protobuf.Ani" +
@@ -60,7 +60,9 @@ public final class Shared {
       "obuf.Animal\032\037.com.assignment.protobuf.An" +
       "imal\"\0000\001\022W\n\021getAnimalByOrigin\022\037.com.assi" +
       "gnment.protobuf.Animal\032\037.com.assignment." +
-      "protobuf.Animal\"\000B\002P\001b\006proto3"
+      "protobuf.Animal\"\000\022R\n\014updateAnimal\022\037.com." +
+      "assignment.protobuf.Animal\032\037.com.assignm" +
+      "ent.protobuf.Animal\"\000B\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

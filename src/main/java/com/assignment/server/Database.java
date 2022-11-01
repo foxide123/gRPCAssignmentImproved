@@ -60,6 +60,36 @@ public class Database {
         return animals;
     }
 
+    public static Animal updateAnimal(Animal animal)
+    {
+        Connection conn = null;
+        /*
+         * cvr,password,firstname,lastname,email,phone,
+         * description,address,hourlyRate, rating*/
+        String SQL = "UPDATE animal SET "
+                + "reg_nr=?"
+                + "arrive_date=?"
+                + "weight=?"
+                + "origin=?"
+                + " WHERE reg_nr=?";
+        PreparedStatement posted = null;
+        try {
+            conn = DriverManager.getConnection(dataUrl, dataUser, dataPassword);
+            posted = conn.prepareStatement(SQL);
+            posted.setLong(1, animal.getRegNr());
+            posted.setString(2, animal.getArriveDate());
+            posted.setFloat(3, animal.getWeight());
+            posted.setString(4, animal.getOrigin());
+            posted.setLong(5, animal.getRegNr());
+
+            posted.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return getAnimalById(animal.getRegNr());
+    }
+
+
 /*
     public static Animal getAnimalById(long id)
     {

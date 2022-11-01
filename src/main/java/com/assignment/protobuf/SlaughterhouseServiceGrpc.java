@@ -138,6 +138,37 @@ public final class SlaughterhouseServiceGrpc {
     return getGetAnimalByOriginMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.assignment.protobuf.Animal,
+      com.assignment.protobuf.Animal> getUpdateAnimalMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "updateAnimal",
+      requestType = com.assignment.protobuf.Animal.class,
+      responseType = com.assignment.protobuf.Animal.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.assignment.protobuf.Animal,
+      com.assignment.protobuf.Animal> getUpdateAnimalMethod() {
+    io.grpc.MethodDescriptor<com.assignment.protobuf.Animal, com.assignment.protobuf.Animal> getUpdateAnimalMethod;
+    if ((getUpdateAnimalMethod = SlaughterhouseServiceGrpc.getUpdateAnimalMethod) == null) {
+      synchronized (SlaughterhouseServiceGrpc.class) {
+        if ((getUpdateAnimalMethod = SlaughterhouseServiceGrpc.getUpdateAnimalMethod) == null) {
+          SlaughterhouseServiceGrpc.getUpdateAnimalMethod = getUpdateAnimalMethod =
+              io.grpc.MethodDescriptor.<com.assignment.protobuf.Animal, com.assignment.protobuf.Animal>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "updateAnimal"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.assignment.protobuf.Animal.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.assignment.protobuf.Animal.getDefaultInstance()))
+              .setSchemaDescriptor(new SlaughterhouseServiceMethodDescriptorSupplier("updateAnimal"))
+              .build();
+        }
+      }
+    }
+    return getUpdateAnimalMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -214,6 +245,17 @@ public final class SlaughterhouseServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAnimalByOriginMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     *rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
+     *rpc createAnimal(Animal) returns(google.protobuf.Empty){}
+     * </pre>
+     */
+    public void updateAnimal(com.assignment.protobuf.Animal request,
+        io.grpc.stub.StreamObserver<com.assignment.protobuf.Animal> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateAnimalMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -244,6 +286,13 @@ public final class SlaughterhouseServiceGrpc {
                 com.assignment.protobuf.Animal,
                 com.assignment.protobuf.Animal>(
                   this, METHODID_GET_ANIMAL_BY_ORIGIN)))
+          .addMethod(
+            getUpdateAnimalMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                com.assignment.protobuf.Animal,
+                com.assignment.protobuf.Animal>(
+                  this, METHODID_UPDATE_ANIMAL)))
           .build();
     }
   }
@@ -293,6 +342,18 @@ public final class SlaughterhouseServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetAnimalByOriginMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     *rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
+     *rpc createAnimal(Animal) returns(google.protobuf.Empty){}
+     * </pre>
+     */
+    public void updateAnimal(com.assignment.protobuf.Animal request,
+        io.grpc.stub.StreamObserver<com.assignment.protobuf.Animal> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateAnimalMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -338,6 +399,17 @@ public final class SlaughterhouseServiceGrpc {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetAnimalByOriginMethod(), getCallOptions(), request);
     }
+
+    /**
+     * <pre>
+     *rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
+     *rpc createAnimal(Animal) returns(google.protobuf.Empty){}
+     * </pre>
+     */
+    public com.assignment.protobuf.Animal updateAnimal(com.assignment.protobuf.Animal request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateAnimalMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -369,12 +441,25 @@ public final class SlaughterhouseServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetAnimalByOriginMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     *rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
+     *rpc createAnimal(Animal) returns(google.protobuf.Empty){}
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.assignment.protobuf.Animal> updateAnimal(
+        com.assignment.protobuf.Animal request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateAnimalMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_ALL_ANIMALS = 0;
   private static final int METHODID_GET_ANIMAL_BY_ID = 1;
   private static final int METHODID_GET_ANIMALS_BY_DATE = 2;
   private static final int METHODID_GET_ANIMAL_BY_ORIGIN = 3;
+  private static final int METHODID_UPDATE_ANIMAL = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -407,6 +492,10 @@ public final class SlaughterhouseServiceGrpc {
           break;
         case METHODID_GET_ANIMAL_BY_ORIGIN:
           serviceImpl.getAnimalByOrigin((com.assignment.protobuf.Animal) request,
+              (io.grpc.stub.StreamObserver<com.assignment.protobuf.Animal>) responseObserver);
+          break;
+        case METHODID_UPDATE_ANIMAL:
+          serviceImpl.updateAnimal((com.assignment.protobuf.Animal) request,
               (io.grpc.stub.StreamObserver<com.assignment.protobuf.Animal>) responseObserver);
           break;
         default:
@@ -474,6 +563,7 @@ public final class SlaughterhouseServiceGrpc {
               .addMethod(getGetAnimalByIdMethod())
               .addMethod(getGetAnimalsByDateMethod())
               .addMethod(getGetAnimalByOriginMethod())
+              .addMethod(getUpdateAnimalMethod())
               .build();
         }
       }

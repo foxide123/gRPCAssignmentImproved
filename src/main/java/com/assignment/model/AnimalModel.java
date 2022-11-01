@@ -1,4 +1,4 @@
-package com.assignment.server;
+package com.assignment.model;
 
 public class AnimalModel {
     private long regNr;

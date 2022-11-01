@@ -1,18 +1,16 @@
 package com.assignment.client;
 
-import com.assignment.protobuf.Animal;
+import com.assignment.model.AnimalModel;
 import com.google.protobuf.Descriptors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1")
@@ -41,6 +39,21 @@ public class SlaughterhouseController {
         return slaughterhouseClient.getAnimalsByDate(date);
     }
 
+    @RequestMapping(
+            value="/animals/{id}",
+    produces="application/json",
+    method={RequestMethod.PUT})
+    public ResponseEntity<Object> updateAnimal(@PathVariable long id,
+                                               @RequestBody AnimalModel animalModel)
+    {
+        try{
+            Map<Descriptors.FieldDescriptor, Object> animalResponse = slaughterhouseClient.updateAnimal(animalModel);
+            return new ResponseEntity<Object>(animalResponse, HttpStatus.OK);
+        }catch(Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
 

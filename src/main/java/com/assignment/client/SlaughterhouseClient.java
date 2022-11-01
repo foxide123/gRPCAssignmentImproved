@@ -1,5 +1,6 @@
 package com.assignment.client;
 
+import com.assignment.model.AnimalModel;
 import com.assignment.protobuf.Animal;
 import com.assignment.protobuf.SlaughterhouseServiceGrpc;
 import com.google.protobuf.Descriptors;
@@ -86,5 +87,14 @@ public class SlaughterhouseClient {
         return response;
     }
 
-
+    public Map<Descriptors.FieldDescriptor, Object> updateAnimal(AnimalModel animalModel)
+    {
+        Animal animalRequest = Animal.newBuilder()
+                .setRegNr(animalModel.getRegNr())
+                .setArriveDate(animalModel.getArriveDate())
+                .setOrigin(animalModel.getOrigin())
+                .setWeight(animalModel.getWeight()).build();
+        Animal animalResponse = synchronousStub.updateAnimal(animalRequest);
+        return animalResponse.getAllFields();
+    }
 }

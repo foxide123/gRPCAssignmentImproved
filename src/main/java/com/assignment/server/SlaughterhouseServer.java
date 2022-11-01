@@ -1,11 +1,10 @@
 package com.assignment.server;
 
+import com.assignment.model.AnimalModel;
 import com.assignment.protobuf.Animal;
 import com.assignment.protobuf.SlaughterhouseServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
-
-import java.util.List;
 
 
 @GrpcService
@@ -34,10 +33,17 @@ public class SlaughterhouseServer extends SlaughterhouseServiceGrpc.Slaughterhou
     public void getAnimalsByDate(Animal request, StreamObserver<Animal> responseObserver) {
         Database.getAllAnimals()
                 .stream()
-                .filter(animal->animal.getArriveDate() == request.getArriveDate())
+                .filter(animal->animal.getArriveDate().equals(request.getArriveDate()))
                 //onNext will send an object to client in real time
                 //will not wait for forEach to be completed
                 .forEach(responseObserver::onNext);
+        responseObserver.onCompleted();
+    }
+
+    public void updateAnimal(Animal request, StreamObserver<Animal> responseObserver)
+    {
+        Animal animalFromDB = Database.updateAnimal(request);
+        responseObserver.onNext(animalFromDB);
         responseObserver.onCompleted();
     }
 

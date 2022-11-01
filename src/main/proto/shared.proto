@@ -40,6 +40,6 @@ service SlaughterhouseService{
 
   //rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
   //rpc createAnimal(Animal) returns(google.protobuf.Empty){}
-  //rpc updateAnimal(Animal) returns(google.protobuf.Empty){}
+  rpc updateAnimal(Animal) returns(Animal){}
   //rpc deleteAnimal(Animal) returns(google.protobuf.Empty){}
 }
