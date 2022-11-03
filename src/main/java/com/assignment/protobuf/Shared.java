@@ -49,9 +49,9 @@ public final class Shared {
       "AnimalPart\022\r\n\005regNr\030\001 \001(\003\022\014\n\004type\030\002 \001(\t\022" +
       "\021\n\tanimalRef\030\003 \001(\003\022\016\n\006weight\030\004 \001(\002\"L\n\004Tr" +
       "ay\022\021\n\ttrayRegNr\030\001 \001(\003\022\016\n\006weight\030\002 \001(\002\022\020\n" +
-      "\010partType\030\003 \001(\t\022\017\n\007partRef\030\004 \003(\003\".\n\010Part" +
+      "\010partType\030\003 \001(\t\022\017\n\007partRef\030\004 \001(\003\".\n\010Part" +
       "Pack\022\021\n\tpackRegNr\030\001 \001(\003\022\017\n\007trayRef\030\002 \003(\003" +
-      "2\312\003\n\025SlaughterhouseService\022U\n\rgetAllAnim" +
+      "2\226\005\n\025SlaughterhouseService\022U\n\rgetAllAnim" +
       "als\022\037.com.assignment.protobuf.Animal\032\037.c" +
       "om.assignment.protobuf.Animal\"\0000\001\022S\n\rget" +
       "AnimalById\022\037.com.assignment.protobuf.Ani" +
@@ -60,9 +60,14 @@ public final class Shared {
       "obuf.Animal\032\037.com.assignment.protobuf.An" +
       "imal\"\0000\001\022W\n\021getAnimalByOrigin\022\037.com.assi" +
       "gnment.protobuf.Animal\032\037.com.assignment." +
-      "protobuf.Animal\"\000\022R\n\014updateAnimal\022\037.com." +
-      "assignment.protobuf.Animal\032\037.com.assignm" +
-      "ent.protobuf.Animal\"\000B\002P\001b\006proto3"
+      "protobuf.Animal\"\000\022g\n\035getAnimalsInvolvedI" +
+      "nProductId\022!.com.assignment.protobuf.Par" +
+      "tPack\032\037.com.assignment.protobuf.Animal\"\000" +
+      "0\001\022a\n\027getProductsFromAnimalId\022\037.com.assi" +
+      "gnment.protobuf.Animal\032!.com.assignment." +
+      "protobuf.PartPack\"\0000\001\022R\n\014updateAnimal\022\037." +
+      "com.assignment.protobuf.Animal\032\037.com.ass" +
+      "ignment.protobuf.Animal\"\000B\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

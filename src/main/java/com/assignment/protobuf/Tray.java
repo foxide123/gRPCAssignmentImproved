@@ -17,7 +17,6 @@ private static final long serialVersionUID = 0L;
   }
   private Tray() {
     partType_ = "";
-    partRef_ = emptyLongList();
   }
 
   @java.lang.Override
@@ -40,7 +39,6 @@ private static final long serialVersionUID = 0L;
     if (extensionRegistry == null) {
       throw new java.lang.NullPointerException();
     }
-    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -68,24 +66,8 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 32: {
-            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              partRef_ = newLongList();
-              mutable_bitField0_ |= 0x00000001;
-            }
-            partRef_.addLong(input.readInt64());
-            break;
-          }
-          case 34: {
-            int length = input.readRawVarint32();
-            int limit = input.pushLimit(length);
-            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
-              partRef_ = newLongList();
-              mutable_bitField0_ |= 0x00000001;
-            }
-            while (input.getBytesUntilLimit() > 0) {
-              partRef_.addLong(input.readInt64());
-            }
-            input.popLimit(limit);
+
+            partRef_ = input.readInt64();
             break;
           }
           default: {
@@ -105,9 +87,6 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        partRef_.makeImmutable(); // C
-      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -186,32 +165,15 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int PARTREF_FIELD_NUMBER = 4;
-  private com.google.protobuf.Internal.LongList partRef_;
+  private long partRef_;
   /**
-   * <code>repeated int64 partRef = 4;</code>
-   * @return A list containing the partRef.
+   * <code>int64 partRef = 4;</code>
+   * @return The partRef.
    */
   @java.lang.Override
-  public java.util.List<java.lang.Long>
-      getPartRefList() {
+  public long getPartRef() {
     return partRef_;
   }
-  /**
-   * <code>repeated int64 partRef = 4;</code>
-   * @return The count of partRef.
-   */
-  public int getPartRefCount() {
-    return partRef_.size();
-  }
-  /**
-   * <code>repeated int64 partRef = 4;</code>
-   * @param index The index of the element to return.
-   * @return The partRef at the given index.
-   */
-  public long getPartRef(int index) {
-    return partRef_.getLong(index);
-  }
-  private int partRefMemoizedSerializedSize = -1;
 
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
@@ -227,7 +189,6 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    getSerializedSize();
     if (trayRegNr_ != 0L) {
       output.writeInt64(1, trayRegNr_);
     }
@@ -237,12 +198,8 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(partType_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, partType_);
     }
-    if (getPartRefList().size() > 0) {
-      output.writeUInt32NoTag(34);
-      output.writeUInt32NoTag(partRefMemoizedSerializedSize);
-    }
-    for (int i = 0; i < partRef_.size(); i++) {
-      output.writeInt64NoTag(partRef_.getLong(i));
+    if (partRef_ != 0L) {
+      output.writeInt64(4, partRef_);
     }
     unknownFields.writeTo(output);
   }
@@ -264,19 +221,9 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(partType_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, partType_);
     }
-    {
-      int dataSize = 0;
-      for (int i = 0; i < partRef_.size(); i++) {
-        dataSize += com.google.protobuf.CodedOutputStream
-          .computeInt64SizeNoTag(partRef_.getLong(i));
-      }
-      size += dataSize;
-      if (!getPartRefList().isEmpty()) {
-        size += 1;
-        size += com.google.protobuf.CodedOutputStream
-            .computeInt32SizeNoTag(dataSize);
-      }
-      partRefMemoizedSerializedSize = dataSize;
+    if (partRef_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(4, partRef_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -300,8 +247,8 @@ private static final long serialVersionUID = 0L;
             other.getWeight())) return false;
     if (!getPartType()
         .equals(other.getPartType())) return false;
-    if (!getPartRefList()
-        .equals(other.getPartRefList())) return false;
+    if (getPartRef()
+        != other.getPartRef()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -321,10 +268,9 @@ private static final long serialVersionUID = 0L;
         getWeight());
     hash = (37 * hash) + PARTTYPE_FIELD_NUMBER;
     hash = (53 * hash) + getPartType().hashCode();
-    if (getPartRefCount() > 0) {
-      hash = (37 * hash) + PARTREF_FIELD_NUMBER;
-      hash = (53 * hash) + getPartRefList().hashCode();
-    }
+    hash = (37 * hash) + PARTREF_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getPartRef());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -464,8 +410,8 @@ private static final long serialVersionUID = 0L;
 
       partType_ = "";
 
-      partRef_ = emptyLongList();
-      bitField0_ = (bitField0_ & ~0x00000001);
+      partRef_ = 0L;
+
       return this;
     }
 
@@ -492,14 +438,9 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.assignment.protobuf.Tray buildPartial() {
       com.assignment.protobuf.Tray result = new com.assignment.protobuf.Tray(this);
-      int from_bitField0_ = bitField0_;
       result.trayRegNr_ = trayRegNr_;
       result.weight_ = weight_;
       result.partType_ = partType_;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        partRef_.makeImmutable();
-        bitField0_ = (bitField0_ & ~0x00000001);
-      }
       result.partRef_ = partRef_;
       onBuilt();
       return result;
@@ -559,15 +500,8 @@ private static final long serialVersionUID = 0L;
         partType_ = other.partType_;
         onChanged();
       }
-      if (!other.partRef_.isEmpty()) {
-        if (partRef_.isEmpty()) {
-          partRef_ = other.partRef_;
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          ensurePartRefIsMutable();
-          partRef_.addAll(other.partRef_);
-        }
-        onChanged();
+      if (other.getPartRef() != 0L) {
+        setPartRef(other.getPartRef());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -597,7 +531,6 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
-    private int bitField0_;
 
     private long trayRegNr_ ;
     /**
@@ -737,81 +670,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.Internal.LongList partRef_ = emptyLongList();
-    private void ensurePartRefIsMutable() {
-      if (!((bitField0_ & 0x00000001) != 0)) {
-        partRef_ = mutableCopy(partRef_);
-        bitField0_ |= 0x00000001;
-       }
-    }
+    private long partRef_ ;
     /**
-     * <code>repeated int64 partRef = 4;</code>
-     * @return A list containing the partRef.
+     * <code>int64 partRef = 4;</code>
+     * @return The partRef.
      */
-    public java.util.List<java.lang.Long>
-        getPartRefList() {
-      return ((bitField0_ & 0x00000001) != 0) ?
-               java.util.Collections.unmodifiableList(partRef_) : partRef_;
+    @java.lang.Override
+    public long getPartRef() {
+      return partRef_;
     }
     /**
-     * <code>repeated int64 partRef = 4;</code>
-     * @return The count of partRef.
-     */
-    public int getPartRefCount() {
-      return partRef_.size();
-    }
-    /**
-     * <code>repeated int64 partRef = 4;</code>
-     * @param index The index of the element to return.
-     * @return The partRef at the given index.
-     */
-    public long getPartRef(int index) {
-      return partRef_.getLong(index);
-    }
-    /**
-     * <code>repeated int64 partRef = 4;</code>
-     * @param index The index to set the value at.
+     * <code>int64 partRef = 4;</code>
      * @param value The partRef to set.
      * @return This builder for chaining.
      */
-    public Builder setPartRef(
-        int index, long value) {
-      ensurePartRefIsMutable();
-      partRef_.setLong(index, value);
+    public Builder setPartRef(long value) {
+      
+      partRef_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>repeated int64 partRef = 4;</code>
-     * @param value The partRef to add.
-     * @return This builder for chaining.
-     */
-    public Builder addPartRef(long value) {
-      ensurePartRefIsMutable();
-      partRef_.addLong(value);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated int64 partRef = 4;</code>
-     * @param values The partRef to add.
-     * @return This builder for chaining.
-     */
-    public Builder addAllPartRef(
-        java.lang.Iterable<? extends java.lang.Long> values) {
-      ensurePartRefIsMutable();
-      com.google.protobuf.AbstractMessageLite.Builder.addAll(
-          values, partRef_);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated int64 partRef = 4;</code>
+     * <code>int64 partRef = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearPartRef() {
-      partRef_ = emptyLongList();
-      bitField0_ = (bitField0_ & ~0x00000001);
+      
+      partRef_ = 0L;
       onChanged();
       return this;
     }

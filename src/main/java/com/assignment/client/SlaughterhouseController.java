@@ -27,11 +27,13 @@ public class SlaughterhouseController {
         return slaughterhouseClient.getAllAnimals();
     }
 
+    //example id - 12345
     @GetMapping("/animals/{id}")
     public Map<Descriptors.FieldDescriptor, Object> getAnimalById(@PathVariable long id) throws InterruptedException {
         return slaughterhouseClient.getAnimalById(id);
     }
 
+    //example date - 10-02-2022
     @GetMapping("/animals/date/{date}")
     public List<Map<Descriptors.FieldDescriptor, Object>> getAnimalsByDate(@PathVariable String date)
     {
@@ -48,6 +50,31 @@ public class SlaughterhouseController {
         try{
             Map<Descriptors.FieldDescriptor, Object> animalResponse = slaughterhouseClient.updateAnimal(animalModel);
             return new ResponseEntity<Object>(animalResponse, HttpStatus.OK);
+        }catch(Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/animals/involvedIn/{productId}")
+    public ResponseEntity<Object> getAnimalsInvolvedInProductId(@PathVariable long id)
+    {
+        try{
+            List<Map<Descriptors.FieldDescriptor, Object>> animalsResponse = slaughterhouseClient.getAnimalsInvolvedInProductId(id);
+            return new ResponseEntity<Object>(animalsResponse, HttpStatus.OK);
+        }catch(Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @GetMapping("/animals/products/in/animal/{id}")
+    public ResponseEntity<Object> getProductsFromAnimalId(@PathVariable long id)
+    {
+        try{
+            List<Map<Descriptors.FieldDescriptor, Object>> productsResponse = slaughterhouseClient.getProductsFromAnimalId(id);
+            return new ResponseEntity<Object>(productsResponse, HttpStatus.OK);
         }catch(Exception e)
         {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

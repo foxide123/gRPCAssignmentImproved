@@ -2,6 +2,9 @@ package com.assignment.server;
 
 
 import com.assignment.protobuf.Animal;
+import com.assignment.protobuf.AnimalPart;
+import com.assignment.protobuf.PartPack;
+import com.assignment.protobuf.Tray;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -36,6 +39,79 @@ public class Database {
         return animal.build();
     }
 
+    public static PartPack getPartPackById(long id)
+    {
+        PartPack.Builder partPack = PartPack.newBuilder();
+        //AnimalModel animalModel = new AnimalModel(0,null,0,null);
+        String SQL = "SELECT * FROM product WHERE reg_nr=?";
+        ResultSet rs = null;
+        PreparedStatement pstm = null;
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(dataUrl, dataUser, dataPassword);
+            pstm = conn.prepareStatement(SQL);
+            pstm.setLong(1, id);
+            rs = pstm.executeQuery();
+            int i=0;
+            while (rs.next()) {
+                process(rs, partPack, i);
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return partPack.build();
+    }
+
+    public static Tray getTrayById(long id)
+    {
+        Tray.Builder tray = Tray.newBuilder();
+        //AnimalModel animalModel = new AnimalModel(0,null,0,null);
+        String SQL = "SELECT * FROM tray WHERE reg_nr=?";
+        ResultSet rs = null;
+        PreparedStatement pstm = null;
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(dataUrl, dataUser, dataPassword);
+            pstm = conn.prepareStatement(SQL);
+            pstm.setLong(1, id);
+            rs = pstm.executeQuery();
+            int i=0;
+            while (rs.next()) {
+                process(rs, tray);
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tray.build();
+    }
+
+
+    public static AnimalPart getPartById(long id)
+    {
+        AnimalPart.Builder animalPart = AnimalPart.newBuilder();
+        //AnimalModel animalModel = new AnimalModel(0,null,0,null);
+        String SQL = "SELECT * FROM part WHERE reg_nr=?";
+        ResultSet rs = null;
+        PreparedStatement pstm = null;
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(dataUrl, dataUser, dataPassword);
+            pstm = conn.prepareStatement(SQL);
+            pstm.setLong(1, id);
+            rs = pstm.executeQuery();
+            int i=0;
+            while (rs.next()) {
+                process(rs, animalPart);
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return animalPart.build();
+    }
+
 
     public static ArrayList<Animal> getAllAnimals()
     {
@@ -58,6 +134,31 @@ public class Database {
             e.printStackTrace();
         }
         return animals;
+    }
+
+    public static ArrayList<PartPack> getAllProducts()
+    {
+        ArrayList<PartPack> products = new ArrayList<>();
+        ResultSet rs = null;
+        Statement stmt = null;
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(dataUrl, dataUser, dataPassword);
+            stmt = conn.createStatement();
+            String SQL = "Select * FROM product";
+            rs = stmt.executeQuery(SQL);
+
+            int i = 0;
+            while (rs.next()) {
+                PartPack.Builder product = PartPack.newBuilder();
+                process(rs, product,i);
+                products.add(product.build());
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     public static Animal updateAnimal(Animal animal)
@@ -120,5 +221,30 @@ public class Database {
         animal.setWeight(rs.getFloat("weight"));
         animal.setOrigin(rs.getString("origin"));
     }
+
+
+
+    private static void process(ResultSet rs, PartPack.Builder partPack, int i) throws SQLException {
+        partPack.setPackRegNr(rs.getLong("reg_nr"));
+        partPack.setTrayRef(i, rs.getLong("tray_ref"));
+
+    }
+
+    private static void process(ResultSet rs, Tray.Builder tray) throws SQLException {
+        tray.setTrayRegNr(rs.getLong("reg_nr"));
+        tray.setWeight(rs.getFloat("weight"));
+        tray.setPartType(rs.getString("type"));
+        tray.setPartRef(rs.getLong("part_ref"));
+
+    }
+
+    private static void process(ResultSet rs, AnimalPart.Builder animalPart) throws SQLException {
+        animalPart.setAnimalRef(rs.getLong("regNr"));
+        animalPart.setType(rs.getString("type"));
+        animalPart.setAnimalRef(rs.getLong("animalRef"));
+        animalPart.setWeight(rs.getLong("weight"));
+
+    }
+
 
 }

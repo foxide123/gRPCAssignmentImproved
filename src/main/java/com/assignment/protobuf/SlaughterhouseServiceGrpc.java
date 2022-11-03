@@ -138,6 +138,68 @@ public final class SlaughterhouseServiceGrpc {
     return getGetAnimalByOriginMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.assignment.protobuf.PartPack,
+      com.assignment.protobuf.Animal> getGetAnimalsInvolvedInProductIdMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getAnimalsInvolvedInProductId",
+      requestType = com.assignment.protobuf.PartPack.class,
+      responseType = com.assignment.protobuf.Animal.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<com.assignment.protobuf.PartPack,
+      com.assignment.protobuf.Animal> getGetAnimalsInvolvedInProductIdMethod() {
+    io.grpc.MethodDescriptor<com.assignment.protobuf.PartPack, com.assignment.protobuf.Animal> getGetAnimalsInvolvedInProductIdMethod;
+    if ((getGetAnimalsInvolvedInProductIdMethod = SlaughterhouseServiceGrpc.getGetAnimalsInvolvedInProductIdMethod) == null) {
+      synchronized (SlaughterhouseServiceGrpc.class) {
+        if ((getGetAnimalsInvolvedInProductIdMethod = SlaughterhouseServiceGrpc.getGetAnimalsInvolvedInProductIdMethod) == null) {
+          SlaughterhouseServiceGrpc.getGetAnimalsInvolvedInProductIdMethod = getGetAnimalsInvolvedInProductIdMethod =
+              io.grpc.MethodDescriptor.<com.assignment.protobuf.PartPack, com.assignment.protobuf.Animal>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getAnimalsInvolvedInProductId"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.assignment.protobuf.PartPack.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.assignment.protobuf.Animal.getDefaultInstance()))
+              .setSchemaDescriptor(new SlaughterhouseServiceMethodDescriptorSupplier("getAnimalsInvolvedInProductId"))
+              .build();
+        }
+      }
+    }
+    return getGetAnimalsInvolvedInProductIdMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.assignment.protobuf.Animal,
+      com.assignment.protobuf.PartPack> getGetProductsFromAnimalIdMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getProductsFromAnimalId",
+      requestType = com.assignment.protobuf.Animal.class,
+      responseType = com.assignment.protobuf.PartPack.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<com.assignment.protobuf.Animal,
+      com.assignment.protobuf.PartPack> getGetProductsFromAnimalIdMethod() {
+    io.grpc.MethodDescriptor<com.assignment.protobuf.Animal, com.assignment.protobuf.PartPack> getGetProductsFromAnimalIdMethod;
+    if ((getGetProductsFromAnimalIdMethod = SlaughterhouseServiceGrpc.getGetProductsFromAnimalIdMethod) == null) {
+      synchronized (SlaughterhouseServiceGrpc.class) {
+        if ((getGetProductsFromAnimalIdMethod = SlaughterhouseServiceGrpc.getGetProductsFromAnimalIdMethod) == null) {
+          SlaughterhouseServiceGrpc.getGetProductsFromAnimalIdMethod = getGetProductsFromAnimalIdMethod =
+              io.grpc.MethodDescriptor.<com.assignment.protobuf.Animal, com.assignment.protobuf.PartPack>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getProductsFromAnimalId"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.assignment.protobuf.Animal.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.assignment.protobuf.PartPack.getDefaultInstance()))
+              .setSchemaDescriptor(new SlaughterhouseServiceMethodDescriptorSupplier("getProductsFromAnimalId"))
+              .build();
+        }
+      }
+    }
+    return getGetProductsFromAnimalIdMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.assignment.protobuf.Animal,
       com.assignment.protobuf.Animal> getUpdateAnimalMethod;
 
@@ -246,6 +308,20 @@ public final class SlaughterhouseServiceGrpc {
     }
 
     /**
+     */
+    public void getAnimalsInvolvedInProductId(com.assignment.protobuf.PartPack request,
+        io.grpc.stub.StreamObserver<com.assignment.protobuf.Animal> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAnimalsInvolvedInProductIdMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getProductsFromAnimalId(com.assignment.protobuf.Animal request,
+        io.grpc.stub.StreamObserver<com.assignment.protobuf.PartPack> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductsFromAnimalIdMethod(), responseObserver);
+    }
+
+    /**
      * <pre>
      *rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
      *rpc createAnimal(Animal) returns(google.protobuf.Empty){}
@@ -286,6 +362,20 @@ public final class SlaughterhouseServiceGrpc {
                 com.assignment.protobuf.Animal,
                 com.assignment.protobuf.Animal>(
                   this, METHODID_GET_ANIMAL_BY_ORIGIN)))
+          .addMethod(
+            getGetAnimalsInvolvedInProductIdMethod(),
+            io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+              new MethodHandlers<
+                com.assignment.protobuf.PartPack,
+                com.assignment.protobuf.Animal>(
+                  this, METHODID_GET_ANIMALS_INVOLVED_IN_PRODUCT_ID)))
+          .addMethod(
+            getGetProductsFromAnimalIdMethod(),
+            io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+              new MethodHandlers<
+                com.assignment.protobuf.Animal,
+                com.assignment.protobuf.PartPack>(
+                  this, METHODID_GET_PRODUCTS_FROM_ANIMAL_ID)))
           .addMethod(
             getUpdateAnimalMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -344,6 +434,22 @@ public final class SlaughterhouseServiceGrpc {
     }
 
     /**
+     */
+    public void getAnimalsInvolvedInProductId(com.assignment.protobuf.PartPack request,
+        io.grpc.stub.StreamObserver<com.assignment.protobuf.Animal> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getGetAnimalsInvolvedInProductIdMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getProductsFromAnimalId(com.assignment.protobuf.Animal request,
+        io.grpc.stub.StreamObserver<com.assignment.protobuf.PartPack> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getGetProductsFromAnimalIdMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
      * <pre>
      *rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
      *rpc createAnimal(Animal) returns(google.protobuf.Empty){}
@@ -398,6 +504,22 @@ public final class SlaughterhouseServiceGrpc {
     public com.assignment.protobuf.Animal getAnimalByOrigin(com.assignment.protobuf.Animal request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetAnimalByOriginMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<com.assignment.protobuf.Animal> getAnimalsInvolvedInProductId(
+        com.assignment.protobuf.PartPack request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getGetAnimalsInvolvedInProductIdMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<com.assignment.protobuf.PartPack> getProductsFromAnimalId(
+        com.assignment.protobuf.Animal request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getGetProductsFromAnimalIdMethod(), getCallOptions(), request);
     }
 
     /**
@@ -459,7 +581,9 @@ public final class SlaughterhouseServiceGrpc {
   private static final int METHODID_GET_ANIMAL_BY_ID = 1;
   private static final int METHODID_GET_ANIMALS_BY_DATE = 2;
   private static final int METHODID_GET_ANIMAL_BY_ORIGIN = 3;
-  private static final int METHODID_UPDATE_ANIMAL = 4;
+  private static final int METHODID_GET_ANIMALS_INVOLVED_IN_PRODUCT_ID = 4;
+  private static final int METHODID_GET_PRODUCTS_FROM_ANIMAL_ID = 5;
+  private static final int METHODID_UPDATE_ANIMAL = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -493,6 +617,14 @@ public final class SlaughterhouseServiceGrpc {
         case METHODID_GET_ANIMAL_BY_ORIGIN:
           serviceImpl.getAnimalByOrigin((com.assignment.protobuf.Animal) request,
               (io.grpc.stub.StreamObserver<com.assignment.protobuf.Animal>) responseObserver);
+          break;
+        case METHODID_GET_ANIMALS_INVOLVED_IN_PRODUCT_ID:
+          serviceImpl.getAnimalsInvolvedInProductId((com.assignment.protobuf.PartPack) request,
+              (io.grpc.stub.StreamObserver<com.assignment.protobuf.Animal>) responseObserver);
+          break;
+        case METHODID_GET_PRODUCTS_FROM_ANIMAL_ID:
+          serviceImpl.getProductsFromAnimalId((com.assignment.protobuf.Animal) request,
+              (io.grpc.stub.StreamObserver<com.assignment.protobuf.PartPack>) responseObserver);
           break;
         case METHODID_UPDATE_ANIMAL:
           serviceImpl.updateAnimal((com.assignment.protobuf.Animal) request,
@@ -563,6 +695,8 @@ public final class SlaughterhouseServiceGrpc {
               .addMethod(getGetAnimalByIdMethod())
               .addMethod(getGetAnimalsByDateMethod())
               .addMethod(getGetAnimalByOriginMethod())
+              .addMethod(getGetAnimalsInvolvedInProductIdMethod())
+              .addMethod(getGetProductsFromAnimalIdMethod())
               .addMethod(getUpdateAnimalMethod())
               .build();
         }

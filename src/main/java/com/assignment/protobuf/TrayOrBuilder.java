@@ -32,19 +32,8 @@ public interface TrayOrBuilder extends
       getPartTypeBytes();
 
   /**
-   * <code>repeated int64 partRef = 4;</code>
-   * @return A list containing the partRef.
+   * <code>int64 partRef = 4;</code>
+   * @return The partRef.
    */
-  java.util.List<java.lang.Long> getPartRefList();
-  /**
-   * <code>repeated int64 partRef = 4;</code>
-   * @return The count of partRef.
-   */
-  int getPartRefCount();
-  /**
-   * <code>repeated int64 partRef = 4;</code>
-   * @param index The index of the element to return.
-   * @return The partRef at the given index.
-   */
-  long getPartRef(int index);
+  long getPartRef();
 }

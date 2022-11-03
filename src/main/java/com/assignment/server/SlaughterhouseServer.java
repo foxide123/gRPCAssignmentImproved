@@ -2,9 +2,12 @@ package com.assignment.server;
 
 import com.assignment.model.AnimalModel;
 import com.assignment.protobuf.Animal;
+import com.assignment.protobuf.PartPack;
 import com.assignment.protobuf.SlaughterhouseServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
+
+import java.util.List;
 
 
 @GrpcService
@@ -38,6 +41,45 @@ public class SlaughterhouseServer extends SlaughterhouseServiceGrpc.Slaughterhou
                 //will not wait for forEach to be completed
                 .forEach(responseObserver::onNext);
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getAnimalsInvolvedInProductId(PartPack partPackRequest, StreamObserver<Animal> responseObserver)
+    {
+        //first loop through array of tray references
+        for(Long trayId : partPackRequest.getTrayRefList())
+        {
+            Database.getAllAnimals()
+                    .stream()
+                    .filter(animal ->
+                            animal.getRegNr() ==
+                                    Database.getPartById(
+                                            Database.getTrayById(trayId).getPartRef()).getAnimalRef()
+
+                        )
+                    .forEach(responseObserver::onNext);
+            responseObserver.onCompleted();
+        }
+    }
+
+    public void getProductsFromAnimalId(Animal animalRequest, StreamObserver<PartPack> responseObserver)
+    {
+        List<PartPack> products = Database.getAllProducts();
+
+        for(PartPack product: products)
+        {
+            //loop through array of tray references
+            for(int i=0; i<product.getTrayRefList().size(); i++)
+            {
+                boolean b = Database.getPartById(
+                        Database.getTrayById(
+                                product.getTrayRefList().get(0)).getPartRef()
+                ).getAnimalRef() == animalRequest.getRegNr();
+                if(b) responseObserver.onNext(product);
+            }
+        }
+
+
     }
 
     public void updateAnimal(Animal request, StreamObserver<Animal> responseObserver)

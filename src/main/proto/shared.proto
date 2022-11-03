@@ -22,7 +22,7 @@ message Tray{
   int64 trayRegNr = 1;
   float weight = 2;
   string partType = 3;
-  repeated int64 partRef = 4;
+  int64 partRef = 4;
 }
 
 message PartPack{
@@ -37,6 +37,9 @@ service SlaughterhouseService{
   rpc getAnimalById(Animal) returns(Animal){}
   rpc getAnimalsByDate(Animal) returns(stream Animal){}
   rpc getAnimalByOrigin(Animal)returns (Animal){}
+
+  rpc getAnimalsInvolvedInProductId(PartPack) returns(stream Animal){}
+  rpc getProductsFromAnimalId(Animal) returns(stream PartPack){}
 
   //rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
   //rpc createAnimal(Animal) returns(google.protobuf.Empty){}
