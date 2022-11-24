@@ -1,19 +1,16 @@
 
 import com.assignment.client.SlaughterhouseClient;
 import com.assignment.protobuf.Animal;
-import com.assignment.server.SlaughterhouseServer;
 import com.google.protobuf.Descriptors;
-import io.grpc.stub.StreamObserver;
-import jdk.jfr.consumer.RecordingStream;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.junit.Test;
 import org.junit.runners.JUnit4;
+
 
 import java.util.ArrayList;
 import java.util.Map;
 
-import static junit.framework.TestCase.assertEquals;
 
 
 @RunWith(JUnit4.class)
@@ -27,6 +24,7 @@ public class TestgRPC {
         slaughterhouseClient = new SlaughterhouseClient();
     }
 
+    /*
     @Test
     public void getAnimalByIdTest() throws Exception{
         slaughterhouseClient = new SlaughterhouseClient();
@@ -51,4 +49,6 @@ public class TestgRPC {
         assertEquals(expectedAnimal,responseAnimal);
     }
 
+
+     */
 }

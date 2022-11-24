@@ -1,18 +1,38 @@
 package com.assignment.server;
 
-import com.assignment.model.AnimalModel;
 import com.assignment.protobuf.Animal;
-import com.assignment.protobuf.PartPack;
 import com.assignment.protobuf.SlaughterhouseServiceGrpc;
+import com.assignment.server.dao.first_station.AnimalDao;
+import com.assignment.server.repositories.first_station.AnimalRepository;
 import io.grpc.stub.StreamObserver;
-import net.devh.boot.grpc.server.service.GrpcService;
+import org.lognet.springboot.grpc.GRpcService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 
-@GrpcService
+@GRpcService
 public class SlaughterhouseServer extends SlaughterhouseServiceGrpc.SlaughterhouseServiceImplBase {
 
+    @Autowired
+    AnimalRepository animalRepository;
+    @Override
+    public void createAnimal(Animal request, StreamObserver<Animal> responseObserver)
+    {
+        AnimalDao animal = new AnimalDao(
+                request.getRegNr(),
+                request.getArriveDate(),
+                request.getWeight(),
+                request.getOrigin()
+        );
+
+        animalRepository.save(animal);
+    }
+
+
+
+
+    /*
 
     @Override
     public void getAllAnimals(Animal request, StreamObserver<Animal> responseObserver)
@@ -89,13 +109,15 @@ public class SlaughterhouseServer extends SlaughterhouseServiceGrpc.Slaughterhou
         responseObserver.onCompleted();
     }
 
-    public Animal setAnimal(AnimalModel animalModel)
+    public Animal setAnimal(AnimalDao animalDao)
     {
         return Animal.newBuilder()
-                .setRegNr(animalModel.getRegNr())
-                .setArriveDate(animalModel.getArriveDate())
-                .setWeight(animalModel.getWeight())
-                .setOrigin(animalModel.getOrigin())
+                .setRegNr(animalDao.getRegNr())
+                .setArriveDate(animalDao.getArriveDate())
+                .setWeight(animalDao.getWeight())
+                .setOrigin(animalDao.getOrigin())
                 .build();
     }
+
+     */
 }

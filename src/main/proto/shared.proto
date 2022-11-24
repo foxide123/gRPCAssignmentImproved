@@ -19,19 +19,25 @@ message AnimalPart{
 }
 
 message Tray{
-  int64 trayRegNr = 1;
+  int64 regNr = 1;
   float weight = 2;
   string partType = 3;
   int64 partRef = 4;
 }
 
 message PartPack{
-  int64 packRegNr = 1;
+  int64 regNr = 1;
   repeated int64 trayRef = 2;
 }
 
 
 service SlaughterhouseService{
+  rpc createAnimal(Animal) returns(Animal){}
+  rpc createAnimalPart(AnimalPart) returns(AnimalPart){}
+  rpc CreateTray(Tray) returns(Tray){}
+  rpc CreatePartPack(PartPack) returns(PartPack){}
+
+
 
   rpc getAllAnimals(Animal) returns(stream Animal){}
   rpc getAnimalById(Animal) returns(Animal){}
@@ -42,7 +48,6 @@ service SlaughterhouseService{
   rpc getProductsFromAnimalId(Animal) returns(stream PartPack){}
 
   //rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
-  //rpc createAnimal(Animal) returns(google.protobuf.Empty){}
   rpc updateAnimal(Animal) returns(Animal){}
   //rpc deleteAnimal(Animal) returns(google.protobuf.Empty){}
 }

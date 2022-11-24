@@ -1,6 +1,9 @@
 package com.assignment.client;
 
-import com.assignment.model.AnimalModel;
+import com.assignment.client.dto.first_station.AnimalDto;
+import com.assignment.client.dto.second_station.AnimalPartDto;
+import com.assignment.client.dto.second_station.TrayDto;
+import com.assignment.server.dao.first_station.AnimalDao;
 import com.google.protobuf.Descriptors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,18 +25,60 @@ public class SlaughterhouseController {
     SlaughterhouseClient slaughterhouseClient = new SlaughterhouseClient();
 
 
+    @PostMapping("/animal")
+    public ResponseEntity<Object> createAnimal(@RequestBody AnimalDto animal) {
+        try {
+            Map<Descriptors.FieldDescriptor, Object> animalResponse = slaughterhouseClient.createAnimal(animal);
+            return new ResponseEntity<Object>(animalResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/animal-part")
+    public ResponseEntity<Object> createAnimalPart(@RequestBody AnimalPartDto animalPart) {
+        try {
+            Map<Descriptors.FieldDescriptor, Object> animalPartResponse = slaughterhouseClient.createAnimalPart(animalPart);
+            return new ResponseEntity<Object>(animalPartResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/animal-part")
+    public ResponseEntity<Object> createTray(@RequestBody TrayDto tray) {
+        try {
+            Map<Descriptors.FieldDescriptor, Object> trayResponse = slaughterhouseClient.createTray(tray);
+            return new ResponseEntity<Object>(trayResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
     @GetMapping("/animals")public List<Map<Descriptors.FieldDescriptor,Object>> getAllAnimals()
     {
         return slaughterhouseClient.getAllAnimals();
     }
 
-    //example id - 12345
     @GetMapping("/animals/{id}")
     public Map<Descriptors.FieldDescriptor, Object> getAnimalById(@PathVariable long id) throws InterruptedException {
         return slaughterhouseClient.getAnimalById(id);
     }
 
-    //example date - 10-02-2022
     @GetMapping("/animals/date/{date}")
     public List<Map<Descriptors.FieldDescriptor, Object>> getAnimalsByDate(@PathVariable String date)
     {
@@ -45,10 +90,10 @@ public class SlaughterhouseController {
     produces="application/json",
     method={RequestMethod.PUT})
     public ResponseEntity<Object> updateAnimal(@PathVariable long id,
-                                               @RequestBody AnimalModel animalModel)
+                                               @RequestBody AnimalDao animalDao)
     {
         try{
-            Map<Descriptors.FieldDescriptor, Object> animalResponse = slaughterhouseClient.updateAnimal(animalModel);
+            Map<Descriptors.FieldDescriptor, Object> animalResponse = slaughterhouseClient.updateAnimal(animalDao);
             return new ResponseEntity<Object>(animalResponse, HttpStatus.OK);
         }catch(Exception e)
         {
@@ -82,6 +127,8 @@ public class SlaughterhouseController {
     }
 
 }
+
+ */
 
 
 /*

@@ -1,9 +1,10 @@
 package com.assignment.client;
 
-import com.assignment.model.AnimalModel;
-import com.assignment.protobuf.Animal;
-import com.assignment.protobuf.PartPack;
-import com.assignment.protobuf.SlaughterhouseServiceGrpc;
+import com.assignment.client.dto.first_station.AnimalDto;
+import com.assignment.client.dto.second_station.AnimalPartDto;
+import com.assignment.client.dto.second_station.TrayDto;
+import com.assignment.protobuf.*;
+import com.assignment.server.dao.first_station.AnimalDao;
 import com.google.protobuf.Descriptors;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -11,8 +12,6 @@ import io.grpc.stub.StreamObserver;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class SlaughterhouseClient {
@@ -27,6 +26,60 @@ public class SlaughterhouseClient {
     SlaughterhouseServiceGrpc.SlaughterhouseServiceStub asynchronousStub
             = SlaughterhouseServiceGrpc.newStub(managedChannel);
 
+
+
+    public Map<Descriptors.FieldDescriptor, Object> createAnimal(AnimalDto animal){
+        Animal animalProto = Animal.newBuilder()
+                .setRegNr(animal.getRegNr())
+                .setArriveDate(animal.getArriveDate())
+                .setWeight(animal.getWeight())
+                .setOrigin(animal.getOrigin())
+
+                .build();
+        Animal animalProtoResponse = synchronousStub.createAnimal(animalProto);
+        return animalProtoResponse.getAllFields();
+    }
+
+    public Map<Descriptors.FieldDescriptor, Object> createAnimalPart(AnimalPartDto animalPart){
+        AnimalPart animalPartProto = AnimalPart.newBuilder()
+                .setRegNr(animalPart.getRegNr())
+                .setType(animalPart.getType())
+                .setAnimalRef(animalPart.getAnimalRef())
+                .setWeight(animalPart.getWeight())
+
+                .build();
+        AnimalPart animalPartProtoResponse = synchronousStub.createAnimalPart(animalPartProto);
+        return animalPartProtoResponse.getAllFields();
+    }
+/*
+    public Map<Descriptors.FieldDescriptor, Object> createTray(TrayDto tray){
+        Tray trayProto = Tray.newBuilder()
+                .set(tray.getRegNr())
+                .setType(animalPart.getType())
+                .setAnimalRef(animalPart.getAnimalRef())
+                .setWeight(animalPart.getWeight())
+
+                .build();
+        Animal animalProtoResponse = synchronousStub.createTray(animalPartProto);
+        return animalProtoResponse.getAllFields();
+    }
+
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 
 
     public List<Map<Descriptors.FieldDescriptor, Object>> getAllAnimals()
@@ -137,14 +190,16 @@ public class SlaughterhouseClient {
     }
 
 
-    public Map<Descriptors.FieldDescriptor, Object> updateAnimal(AnimalModel animalModel)
+    public Map<Descriptors.FieldDescriptor, Object> updateAnimal(AnimalDao animalDao)
     {
         Animal animalRequest = Animal.newBuilder()
-                .setRegNr(animalModel.getRegNr())
-                .setArriveDate(animalModel.getArriveDate())
-                .setOrigin(animalModel.getOrigin())
-                .setWeight(animalModel.getWeight()).build();
+                .setRegNr(animalDao.getRegNr())
+                .setArriveDate(animalDao.getArriveDate())
+                .setOrigin(animalDao.getOrigin())
+                .setWeight(animalDao.getWeight()).build();
         Animal animalResponse = synchronousStub.updateAnimal(animalRequest);
         return animalResponse.getAllFields();
     }
+
+ */
 }

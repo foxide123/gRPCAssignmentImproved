@@ -1,12 +1,29 @@
-package com.assignment.model;
+package com.assignment.server.dao.first_station;
 
-public class AnimalModel {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="customer")
+public class AnimalDao {
+    @Id
+    @Column(name="reg_nr")
     private long regNr;
+    @Column(name="arrive_date")
     private String arriveDate;
+    @Column(name="weight")
     private float weight;
+    @Column(name="origin")
     private String origin;
 
-    public AnimalModel(long regNr, String arriveDate, float weight, String origin)
+
+    public AnimalDao()
+    {
+
+    }
+    public AnimalDao(long regNr, String arriveDate, float weight, String origin)
     {
         this.regNr = regNr;
         this.arriveDate = arriveDate;

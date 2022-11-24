@@ -1,15 +1,11 @@
 package com.assignment.server;
 
 
-import com.assignment.protobuf.Animal;
-import com.assignment.protobuf.AnimalPart;
-import com.assignment.protobuf.PartPack;
-import com.assignment.protobuf.Tray;
-
 import java.sql.*;
 import java.util.ArrayList;
 
 public class Database {
+    /*
 
     private static String dataUrl = "jdbc:postgresql://mouse.db.elephantsql.com:5432/ejsrwscs";
     private static String dataPassword = "k52Amb9p9_94Zm28aH7k5W076i-Et2Qa";
@@ -163,10 +159,7 @@ public class Database {
 
     public static Animal updateAnimal(Animal animal)
     {
-        Connection conn = null;
-        /*
-         * cvr,password,firstname,lastname,email,phone,
-         * description,address,hourlyRate, rating*/
+
         String SQL = "UPDATE animal SET "
                 + "reg_nr=?"
                 + "arrive_date=?"
@@ -191,7 +184,7 @@ public class Database {
     }
 
 
-/*
+
     public static Animal getAnimalById(long id)
     {
         Animal.Builder tmpAnimal = Animal.newBuilder();
@@ -212,7 +205,7 @@ public class Database {
         }
         return tmpAnimal.build();
     }
-*/
+
 
 
     private static void process(ResultSet rs, Animal.Builder animal) throws SQLException {
@@ -246,5 +239,8 @@ public class Database {
 
     }
 
+
+
+     */
 
 }
