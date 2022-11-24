@@ -4,7 +4,7 @@ import com.assignment.client.dto.first_station.AnimalDto;
 import com.assignment.client.dto.second_station.AnimalPartDto;
 import com.assignment.client.dto.second_station.TrayDto;
 import com.assignment.client.dto.third_station.PartPackDto;
-import com.assignment.server.dao.first_station.AnimalDao;
+import com.google.api.Http;
 import com.google.protobuf.Descriptors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,17 +68,19 @@ public class SlaughterhouseController {
     }
 
     @GetMapping("/animals/involvedIn/{id}")
-    public ResponseEntity<Map<Long, Object>> getAnimalsInvolvedInProductId(@PathVariable long id)
+    public ResponseEntity<List<AnimalDto>> getAnimalsInvolvedInProductId(@PathVariable long id)
     {
-        try{
-            return new ResponseEntity<>(slaughterhouseClient.getAnimalsInvolvedInProductId(id), HttpStatus.OK);
-        }catch(Exception e)
-        {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return  new ResponseEntity<List<AnimalDto>>(slaughterhouseClient.getAnimalsInvolvedInProductId(id), HttpStatus.OK);
     }
 
+    /*
+    @GetMapping("/products/involvedIn/animal/{id}")
+    public ResponseEntity<List<PartPackDto>> getProductsFromAnimalId(@PathVariable long id)
+    {
+        return  new ResponseEntity<List<PartPackDto>>(slaughterhouseClient.getProductsFromAnimalId(id), HttpStatus.OK);
+    }
 
+     */
 
 }
 

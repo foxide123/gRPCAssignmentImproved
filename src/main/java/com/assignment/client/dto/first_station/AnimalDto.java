@@ -2,6 +2,7 @@ package com.assignment.client.dto.first_station;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import java.util.Objects;
 
 public class AnimalDto {
 
@@ -53,5 +54,21 @@ public class AnimalDto {
 
     public void setOrigin(String origin) {
         this.origin = origin;
+    }
+
+
+    public boolean equals(final Object obj)
+    {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        AnimalDto other = (AnimalDto) obj;
+        return Objects.equals(regNr, other.getRegNr());
     }
 }

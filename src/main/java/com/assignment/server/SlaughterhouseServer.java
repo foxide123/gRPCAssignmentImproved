@@ -143,6 +143,21 @@ public class SlaughterhouseServer extends SlaughterhouseServiceGrpc.Slaughterhou
         responseObserver.onCompleted();
     }
 
+/*
+    @Override
+    public void getProductsFromAnimalId(RequestLongId request, StreamObserver<PartPack> responseObserver)
+    {
+        List<AnimalPartDao> animalParts = animalPartRepository.findByAnimalReference(animalRepository.findById(request.getId()).get().getRegNr());
+
+        for(int i=0; i<animalParts.size(); i++)
+        {
+            trayRepository.findByAnimalReference(animalParts.get(i).getRegNr())
+        }
+
+    }
+
+ */
+
 
 
     /*

@@ -14,4 +14,7 @@ public interface AnimalPartRepository extends JpaRepository<AnimalPartDao, Long>
 
     @Query(nativeQuery =true,value = "SELECT * FROM animal_part as p WHERE p.reg_nr IN (:references)")   // 3. Spring JPA In cause using native query
     List<AnimalPartDao> findAllByReference(@Param("references") List<Long> references);
+
+    @Query(value = "select * from animal_part p where p.animal_ref IN (:id)", nativeQuery = true)
+    List<AnimalPartDao> findByAnimalReference(@Param("id") Long id);
 }

@@ -50,7 +50,7 @@ service SlaughterhouseService{
   rpc getAnimalByOrigin(Animal)returns (Animal){}
 
   rpc getAnimalsInvolvedInProductId(RequestLongId) returns(stream Animal){}
-  rpc getProductsFromAnimalId(Animal) returns(stream PartPack){}
+  rpc getProductsFromAnimalId(RequestLongId) returns(stream PartPack){}
 
 
   //rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}

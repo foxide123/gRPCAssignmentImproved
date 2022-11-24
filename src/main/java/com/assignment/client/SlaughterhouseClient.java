@@ -5,7 +5,6 @@ import com.assignment.client.dto.second_station.AnimalPartDto;
 import com.assignment.client.dto.second_station.TrayDto;
 import com.assignment.client.dto.third_station.PartPackDto;
 import com.assignment.protobuf.*;
-import com.assignment.server.dao.first_station.AnimalDao;
 import com.google.protobuf.Descriptors;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -13,6 +12,7 @@ import io.grpc.stub.StreamObserver;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SlaughterhouseClient {
@@ -76,11 +76,11 @@ public class SlaughterhouseClient {
     }
 
 
-    public Map<Long, Object> getAnimalsInvolvedInProductId(Long id){
+    public List<AnimalDto> getAnimalsInvolvedInProductId(Long id){
         RequestLongId requestId = RequestLongId.newBuilder()
                 .setId(id).build();
 
-        final Map<Long, Object> response = new HashMap<>();
+        final List<AnimalDto> response = new ArrayList<>();
 
         asynchronousStub.getAnimalsInvolvedInProductId(requestId, new StreamObserver<Animal>() {
             @Override
@@ -91,7 +91,47 @@ public class SlaughterhouseClient {
                         animal.getWeight(),
                         animal.getOrigin()
                 );
-                response.put(animalDto.getRegNr(), animalDto);
+                response.add(animalDto);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+        });
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        List<AnimalDto> distinctAnimals = response
+                .stream()
+                .distinct()
+                .collect(Collectors.toList());
+        return distinctAnimals;
+    }
+
+/*
+    public List<PartPackDto> getProductsFromAnimalId(Long id)
+    {
+
+        final List<PartPackDto> response = new ArrayList<>();
+
+        asynchronousStub.getProductsFromAnimalId(RequestLongId.newBuilder().setId(id).build(), new StreamObserver<PartPack>() {
+            @Override
+            public void onNext(PartPack partPack) {
+                PartPackDto partPackDto = new PartPackDto(
+                        partPack.getRegNr(),
+                        partPack.getTrayRefList()
+                );
+
+                response.add(partPackDto);
             }
 
             @Override
@@ -109,8 +149,7 @@ public class SlaughterhouseClient {
 
 
 
-
-
+ */
 
 
 
