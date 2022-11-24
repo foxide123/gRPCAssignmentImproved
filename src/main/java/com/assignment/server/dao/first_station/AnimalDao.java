@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="customer")
+@Table(name="animal")
 public class AnimalDao {
     @Id
     @Column(name="reg_nr")

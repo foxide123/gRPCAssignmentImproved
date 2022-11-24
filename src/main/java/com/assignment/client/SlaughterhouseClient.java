@@ -3,6 +3,7 @@ package com.assignment.client;
 import com.assignment.client.dto.first_station.AnimalDto;
 import com.assignment.client.dto.second_station.AnimalPartDto;
 import com.assignment.client.dto.second_station.TrayDto;
+import com.assignment.client.dto.third_station.PartPackDto;
 import com.assignment.protobuf.*;
 import com.assignment.server.dao.first_station.AnimalDao;
 import com.google.protobuf.Descriptors;
@@ -51,21 +52,62 @@ public class SlaughterhouseClient {
         AnimalPart animalPartProtoResponse = synchronousStub.createAnimalPart(animalPartProto);
         return animalPartProtoResponse.getAllFields();
     }
-/*
+
     public Map<Descriptors.FieldDescriptor, Object> createTray(TrayDto tray){
         Tray trayProto = Tray.newBuilder()
-                .set(tray.getRegNr())
-                .setType(animalPart.getType())
-                .setAnimalRef(animalPart.getAnimalRef())
-                .setWeight(animalPart.getWeight())
+                .setRegNr(tray.getRegNr())
+                .setWeight(tray.getWeight())
+                .setPartType(tray.getPartType())
+                .addAllPartRef(tray.getPartRef())
 
                 .build();
-        Animal animalProtoResponse = synchronousStub.createTray(animalPartProto);
-        return animalProtoResponse.getAllFields();
+        Tray trayResponse = synchronousStub.createTray(trayProto);
+        return trayResponse.getAllFields();
+    }
+
+    public Map<Descriptors.FieldDescriptor, Object> createPartPack(PartPackDto pack){
+        PartPack partPackProto = PartPack.newBuilder()
+                .setRegNr(pack.getRegNr())
+                .addAllTrayRef(pack.getTrayRef())
+
+                .build();
+        PartPack partPackResponse = synchronousStub.createPartPack(partPackProto);
+        return partPackResponse.getAllFields();
     }
 
 
- */
+    public Map<Long, Object> getAnimalsInvolvedInProductId(Long id){
+        RequestLongId requestId = RequestLongId.newBuilder()
+                .setId(id).build();
+
+        final Map<Long, Object> response = new HashMap<>();
+
+        asynchronousStub.getAnimalsInvolvedInProductId(requestId, new StreamObserver<Animal>() {
+            @Override
+            public void onNext(Animal animal) {
+                AnimalDto animalDto = new AnimalDto(
+                        animal.getRegNr(),
+                        animal.getArriveDate(),
+                        animal.getWeight(),
+                        animal.getOrigin()
+                );
+                response.put(animalDto.getRegNr(), animalDto);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+        });
+        return response;
+    }
+
+
 
 
 

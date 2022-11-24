@@ -3,6 +3,7 @@ package com.assignment.server.dao.second_station;
 import com.assignment.server.dao.third_station.PartPackDao;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="tray")
@@ -15,19 +16,15 @@ public class TrayDao {
     float weight;
     @Column(name="part_type")
     String partType;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="part_ref", referencedColumnName="reg_nr")
-    AnimalPartDao partRef;
-
-    @ManyToOne
-    @JoinColumn(name="part_pack_ref")
-    private PartPackDao partPack;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="part_ref")
+    List<AnimalPartDao> partRef;
 
 
     public TrayDao() {
     }
 
-    public TrayDao(Long regNr, float weight, String partType, AnimalPartDao partRef) {
+    public TrayDao(Long regNr, float weight, String partType, List<AnimalPartDao> partRef) {
         this.regNr = regNr;
         this.weight = weight;
         this.partType = partType;
@@ -58,11 +55,11 @@ public class TrayDao {
         this.partType = partType;
     }
 
-    public AnimalPartDao getPartRef() {
+    public List<AnimalPartDao> getPartRef() {
         return partRef;
     }
 
-    public void setPartRef(AnimalPartDao partRef) {
+    public void setPartRef(List<AnimalPartDao> partRef) {
         this.partRef = partRef;
     }
 }

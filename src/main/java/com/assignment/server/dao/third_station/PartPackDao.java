@@ -12,8 +12,8 @@ public class PartPackDao {
     @Column(name="reg_nr")
     Long regNr;
     //CascadeType.ALL -The meaning of CascadeType.ALL is that the persistence will propagate (cascade) all EntityManager operations (PERSIST, REMOVE, REFRESH, MERGE, DETACH) to the relating entities.
-    @OneToMany(mappedBy="partPack", cascade = CascadeType.ALL)
-    @Column(name="tray_ref")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="tray_ref")
     List<TrayDao> trayRef;
 
     public PartPackDao() {

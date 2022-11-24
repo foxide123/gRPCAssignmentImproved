@@ -4,6 +4,11 @@ option java_multiple_files = true;
 
 package com.assignment.protobuf;
 
+message RequestLongId{
+  int64 id=1;
+}
+
+
 message Animal{
   int64 regNr = 1;
   string arriveDate = 2;
@@ -22,7 +27,7 @@ message Tray{
   int64 regNr = 1;
   float weight = 2;
   string partType = 3;
-  int64 partRef = 4;
+  repeated int64 partRef = 4;
 }
 
 message PartPack{
@@ -34,8 +39,8 @@ message PartPack{
 service SlaughterhouseService{
   rpc createAnimal(Animal) returns(Animal){}
   rpc createAnimalPart(AnimalPart) returns(AnimalPart){}
-  rpc CreateTray(Tray) returns(Tray){}
-  rpc CreatePartPack(PartPack) returns(PartPack){}
+  rpc createTray(Tray) returns(Tray){}
+  rpc createPartPack(PartPack) returns(PartPack){}
 
 
 
@@ -44,8 +49,9 @@ service SlaughterhouseService{
   rpc getAnimalsByDate(Animal) returns(stream Animal){}
   rpc getAnimalByOrigin(Animal)returns (Animal){}
 
-  rpc getAnimalsInvolvedInProductId(PartPack) returns(stream Animal){}
+  rpc getAnimalsInvolvedInProductId(RequestLongId) returns(stream Animal){}
   rpc getProductsFromAnimalId(Animal) returns(stream PartPack){}
+
 
   //rpc getAllAnimals(google.protobuf.Empty) returns(stream Animal){}
   rpc updateAnimal(Animal) returns(Animal){}

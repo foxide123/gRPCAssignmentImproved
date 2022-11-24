@@ -3,6 +3,7 @@ package com.assignment.client;
 import com.assignment.client.dto.first_station.AnimalDto;
 import com.assignment.client.dto.second_station.AnimalPartDto;
 import com.assignment.client.dto.second_station.TrayDto;
+import com.assignment.client.dto.third_station.PartPackDto;
 import com.assignment.server.dao.first_station.AnimalDao;
 import com.google.protobuf.Descriptors;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +47,7 @@ public class SlaughterhouseController {
         }
     }
 
-    @PostMapping("/animal-part")
+    @PostMapping("/tray")
     public ResponseEntity<Object> createTray(@RequestBody TrayDto tray) {
         try {
             Map<Descriptors.FieldDescriptor, Object> trayResponse = slaughterhouseClient.createTray(tray);
@@ -54,9 +56,31 @@ public class SlaughterhouseController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/pack")
+    public ResponseEntity<Object> createPack(@RequestBody PartPackDto pack) {
+        try {
+            Map<Descriptors.FieldDescriptor, Object> trayResponse = slaughterhouseClient.createPartPack(pack);
+            return new ResponseEntity<Object>(trayResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/animals/involvedIn/{id}")
+    public ResponseEntity<Map<Long, Object>> getAnimalsInvolvedInProductId(@PathVariable long id)
+    {
+        try{
+            return new ResponseEntity<>(slaughterhouseClient.getAnimalsInvolvedInProductId(id), HttpStatus.OK);
+        }catch(Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
 }
-
-
 
 
 
